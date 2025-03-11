@@ -1,0 +1,27 @@
+name: Build AGRakClient
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Compile Executable
+        run: |
+          REM Compile all C and C++ source files in the root directory.
+          REM Adjust the command if your files are located in subdirectories or require special flags.
+          cl /EHsc /FeAGRakClient.exe *.cpp *.c
+
+      - name: Upload Executable Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: AGRakClient
+          path: AGRakClient.exe
