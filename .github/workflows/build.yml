@@ -21,13 +21,13 @@ jobs:
           dotnet-version: '8.0.x'  # change this to your project's .NET version
 
       - name: Restore dependencies
-        run: dotnet restore MyProject.sln
+        run: dotnet restore AGRakClient.sln
 
       - name: Build solution
-        run: dotnet build MyProject.sln --configuration Release
+        run: dotnet build AGRakClient.sln --configuration Release
 
       - name: Publish output
-        run: dotnet publish MyProject.sln --configuration Release --output ./publish
+        run: dotnet publish AGRakClient.sln --configuration Release --output ./publish
 
       - name: Upload built EXE
         uses: actions/upload-artifact@v4
