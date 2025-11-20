@@ -6,9 +6,9 @@ name: Build Dotnet Solutions
 
 on:
   push:
-    branches: [ main ]
+    branches:[ "master" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "master" ]
     paths:
       - '**/*.cs'
       - '**/*.csproj'
@@ -42,7 +42,7 @@ jobs:
           echo "${delimiter}" >> "${GITHUB_OUTPUT}"
 
   build_dotnet_solutions:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: get_solutions
     strategy:
       max-parallel: 5
