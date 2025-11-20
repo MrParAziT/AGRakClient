@@ -27,10 +27,11 @@ jobs:
     - name: Build solution
       run: msbuild AGRakClient.sln /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /p:PlatformToolset=v143
     
-    - name: Upload build artifacts
-      if: success()
-      uses: actions/upload-artifact@v4
-      with:
-        name: AGRakClient-${{ matrix.configuration }}-${{ matrix.platform }}
-        path: AGRakClient/bin/
-        retention-days: 30
+- name: Upload build artifacts
+  if: success()
+  uses: actions/upload-artifact@v4
+  with:
+    name: AGRakClient-${{ matrix.configuration }}-${{ matrix.platform }}
+    path: AGRakClient/bin/${{ matrix.configuration }}/${{ matrix.platform }}/
+    retention-days: 30
+
