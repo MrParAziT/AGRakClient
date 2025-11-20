@@ -1,0 +1,36 @@
+name: Build AGRakClient
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        platform: [x64, x86]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Restore NuGet packages
+      run: nuget restore AGRakClient.sln
+    
+    - name: Build solution
+      run: msbuild AGRakClient.sln /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /p:PlatformToolset=v143
+    
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: AGRakClient-${{ matrix.configuration }}-${{ matrix.platform }}
+        path: AGRakClient/bin/
+        retention-days: 30
