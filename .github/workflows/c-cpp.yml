@@ -31,13 +31,4 @@ jobs:
       - name: Build solution
         run: msbuild AGRakClient.sln /p:Configuration=Release /p:Platform=x86
 
-      # List build output to debug paths
-      - name: List build output
-        run: dir /s /b
 
-      # Upload the built exe(s) as artifact
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: built-exe
-          path: '**/bin/Release/**/*.exe'
