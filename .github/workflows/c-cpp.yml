@@ -1,0 +1,40 @@
+name: Build Solution
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # Checkout your repository
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Setup MSBuild (comes with Visual Studio)
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3.1
+
+      # Setup NuGet to restore packages
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.2.0
+
+      # Restore NuGet packages
+      - name: Restore packages
+        run: nuget restore YourSolution.sln
+
+      # Build the solution
+      - name: Build solution
+        run: msbuild YourSolution.sln /p:Configuration=Release /p:Platform="Any CPU"
+
+      # Upload the built exe as an artifact
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-exe
+          path: |
+            **/bin/Release/**/*.exe
