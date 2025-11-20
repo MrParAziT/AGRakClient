@@ -28,8 +28,9 @@ jobs:
         run: nuget restore AGRakClient.sln
 
       # Build the solution
-      - name: Build solution
-        run: msbuild AGRakClient.sln /p:Configuration=Release /p:Platform="Any CPU"
+- name: Build solution
+  run: msbuild AGRakClient.sln /p:Configuration=Release /p:Platform="x86"
+
 
       # Upload the built exe as an artifact
       - name: Upload artifact
