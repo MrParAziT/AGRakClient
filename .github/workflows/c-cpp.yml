@@ -25,11 +25,11 @@ jobs:
 
       # Restore NuGet packages
       - name: Restore packages
-        run: nuget restore YourSolution.sln
+        run: nuget restore AGRakClient.sln
 
       # Build the solution
       - name: Build solution
-        run: msbuild YourSolution.sln /p:Configuration=Release /p:Platform="Any CPU"
+        run: msbuild AGRakClient.sln /p:Configuration=Release /p:Platform="Any CPU"
 
       # Upload the built exe as an artifact
       - name: Upload artifact
