@@ -8,7 +8,7 @@ int LoadSettings()
 {
 	settings.iClassID = 19;
 	settings.iUpdateStats = 1;
-	strcpy(settings.server.szAddr, "185.112.33.99");
+	strcpy(settings.server.szAddr, "127.0.0.1");
 	settings.server.iPort = 7777;
 
 	if (!settings.haveParentProcess)
