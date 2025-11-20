@@ -21,8 +21,9 @@ on:
       - '.github/workflows/build-dotnet.yml'
 
 jobs:
-  get_solutions:
-    runs-on: ubuntu-latest
+  build_dotnet_solutions:
+    runs-on: windows-latest
+    needs: get_solutions
     outputs:
        matrix: ${{ steps.build_solutions_list.outputs.projects }}
     steps:
