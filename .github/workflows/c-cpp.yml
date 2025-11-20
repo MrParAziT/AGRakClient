@@ -1,4 +1,4 @@
-name: Build Solution
+name: Build AGRakClient
 
 on:
   push:
@@ -11,15 +11,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Checkout your repository
+      # Checkout source
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Setup MSBuild (comes with Visual Studio)
+      # Setup MSBuild
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
 
-      # Setup NuGet to restore packages
+      # Setup NuGet
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.2.0
 
@@ -27,15 +27,17 @@ jobs:
       - name: Restore packages
         run: nuget restore AGRakClient.sln
 
-      # Build the solution
+      # Build solution (adjust Platform to match your Configuration Manager)
       - name: Build solution
-        run: msbuild AGRakClient.sln /p:Configuration=Release /p:Platform="x86"
+        run: msbuild AGRakClient.sln /p:Configuration=Release /p:Platform=x86
 
+      # List build output to debug paths
+      - name: List build output
+        run: dir /s /b
 
-      # Upload the built exe as an artifact
+      # Upload the built exe(s) as artifact
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: built-exe
-          path: |
-            **/bin/Release/**/*.exe
+          path: '**/bin/Release/**/*.exe'
