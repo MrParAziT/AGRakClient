@@ -31,4 +31,13 @@ jobs:
       - name: Build solution
         run: msbuild AGRakClient.sln /p:Configuration=Release /p:Platform=x86
 
-
+     - id: upload-artifacts
+        name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-build-${{ matrix.solutions }}-${{ github.run_id }}
+          path: |
+            **/bin/Debug/
+            **/bin/Release/
+          retention-days: 30
